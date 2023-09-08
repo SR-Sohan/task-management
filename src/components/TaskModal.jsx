@@ -1,4 +1,9 @@
-const TaskModal = () => {
+const TaskModal = ({handleTask,members}) => {
+
+    const submitTask = () => {
+        handleTask("asdf")
+    }
+
   return (
     <div
       class="modal fade"
@@ -35,18 +40,14 @@ const TaskModal = () => {
                     <input className="form-control" type="text" name="description" id="description" />
                 </div>
                 <div className="mb-3">
-                    <div className="assign">                       
-                        <input class="form-check-input" type="radio" name="assign" id="akash" value="akash" />
-                        <label class="form-check-label ms-2" htmlFor="akash">Akash</label>
-                    </div>
-                    <div className="assign">                       
-                        <input class="form-check-input" type="radio" name="assign" id="akram" value="akash" />
-                        <label class="form-check-label ms-2" htmlFor="akram">Akram</label>
-                    </div>
-                    <div className="assign">                       
-                        <input class="form-check-input" type="radio" name="assign" id="jolil" value="akash" />
-                        <label class="form-check-label ms-2" htmlFor="jolil">Jolil</label>
-                    </div>
+                    {
+                        members.map( member => <div key={member.email} className="assign">                       
+                        <input class="form-check-input" type="radio" name="assign" id={member.name} value={member.email} />
+                        <label class="form-check-label ms-2" htmlFor={member.name}>{member.name}</label>
+                    </div>)
+                    }
+                 
+                  
                 </div>
             </form>
           </div>
@@ -58,7 +59,7 @@ const TaskModal = () => {
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary">
+            <button onClick={submitTask} type="button" class="btn btn-primary">
               Create
             </button>
           </div>

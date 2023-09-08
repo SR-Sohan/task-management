@@ -1,8 +1,23 @@
 import { useParams } from "react-router-dom";
 import TaskModal from "../components/TaskModal";
+import { useEffect, useState } from "react";
 
 const Teams = () => {
-  const { name } = useParams();
+    const { name } = useParams();
+    const [members,setMembers] = useState([]);
+
+    useEffect(()=> {
+        let teams = JSON.parse(localStorage.getItem("teams"));
+       
+        let filterTeam = teams.find( team => team.teamName == name)
+        setMembers(filterTeam.members)
+    },[])
+   
+   
+
+  const handleSubmit = (data) => {
+    console.log(data);
+  }
 
   return (
     <div className="container-fluid">
@@ -17,7 +32,7 @@ const Teams = () => {
         </div>
         <div className="col-md-4">
             <button className="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#taskModal">Create Task</button>
-            <TaskModal/>
+            <TaskModal members={members} handleTask={handleSubmit}/>
         </div>
       </div>
       <div className="row mt-5 bg-white shadow-lg p-4">

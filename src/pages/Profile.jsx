@@ -1,9 +1,26 @@
 import { useEffect, useState } from "react";
-import preview from "../assets/preview.png";
+import defaultImg from "../assets/preview.png";
 import { toast } from "react-toastify";
 
 const Profile = () => {
   const [auth, setAuth] = useState({});
+  const [file,setFile] = useState('');
+  const [preview,setPreview] = useState('')
+
+  const handleFile = (e) => {
+
+    const selectedFile = e.target.files[0];
+
+    const reader = new FileReader();
+    reader.readAsDataURL(selectedFile);
+    reader.addEventListener('load', () => {
+      document.getElementById("preview").src = reader.result
+      setPreview(reader.result)
+      setAuth((prev) => ({...prev, image: reader.result}))
+  });
+  
+
+  }
 
   const handleChange = (e) => {
     setAuth((even) => ({ ...even, [e.target.name]: e.target.value }));
@@ -31,7 +48,11 @@ const Profile = () => {
     } else if (auth.bio === "") {
       toast.error("Bio is required");
     } else {
+
+
+
       const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+
 
       const userIndex = existingUsers.findIndex(
         (user) => user.email === auth.email
@@ -114,10 +135,11 @@ const Profile = () => {
                   borderRadius: "40%",
                   objectFit: "cover",
                 }}
-                src={auth.image ? auth.image : preview}
+                src={auth.image ? auth.image : defaultImg}
                 alt=""
+                id="preview"
               />
-              <input className="form-control" type="file" name="" id="" />
+              <input onChange={handleFile} className="form-control" type="file" name="" id="" />
             </div>
             <div className="col-md-8 mt-3">
               <button type="submit" className="w-100 btn btn-outline-danger">
