@@ -1,7 +1,29 @@
+import { useState } from "react";
+import { toast } from "react-toastify";
+
 const TaskModal = ({handleTask,members}) => {
 
+  const [data,setData] = useState({});
+
+  const handleChange = (e) => {
+    setData((prev) => ({...prev, [e.target.name]: e.target.value}))
+    setData((prev) => ({...prev, status: "pending"}))
+  }
+
     const submitTask = () => {
-        handleTask("asdf")
+
+      if(data.name === ''){
+        toast.error("Please enter Task Name")
+      }else if(data.due === ""){
+        toast.error("Please Select Due Date")
+      }else if( data.description === ""){
+        toast.error("Please enter Description")
+      }else if(data.assign === ''){
+        toast.error("Please select member")
+      }else {
+        handleTask(data);
+      }
+      
     }
 
   return (
@@ -16,7 +38,7 @@ const TaskModal = ({handleTask,members}) => {
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="exampleModalLabel">
-           Create Task
+              Create Task
             </h1>
             <button
               type="button"
@@ -26,33 +48,34 @@ const TaskModal = ({handleTask,members}) => {
             ></button>
           </div>
           <div class="modal-body">
-            <form>
+            <form id="taskForm">
+
                 <div className="mb-3">
                     <label htmlFor="name">Task Name</label>
-                    <input className="form-control" type="text" name="name" id="name" />
+                    <input onChange={handleChange} className="form-control" type="text" name="name" id="name" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="due">Due Date</label>
-                    <input className="form-control" type="date" name="due" id="due" />
+                    <input onChange={handleChange} className="form-control" type="date" name="due" id="due" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="description">Description</label>
-                    <input className="form-control" type="text" name="description" id="description" />
+                    <input onChange={handleChange} className="form-control" type="text" name="description" id="description" />
                 </div>
                 <div className="mb-3">
                     {
                         members.map( member => <div key={member.email} className="assign">                       
-                        <input class="form-check-input" type="radio" name="assign" id={member.name} value={member.email} />
+                        <input onChange={handleChange} class="form-check-input" type="radio" name="assign" id={member.name} value={member.email} />
                         <label class="form-check-label ms-2" htmlFor={member.name}>{member.name}</label>
                     </div>)
                     }
-                 
                   
                 </div>
             </form>
           </div>
           <div class="modal-footer">
             <button
+              id="closeModal"
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"

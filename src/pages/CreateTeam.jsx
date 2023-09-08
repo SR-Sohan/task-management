@@ -22,15 +22,13 @@ const CreateTeam = () => {
     setSuggestion(searchVal)
   }
 
-  const addMember = () => {
-  
+  const addMember = () => {  
     setMember((prev) => [...prev, select])
     setSelect({})
   }
 
   const deleteMember = (email) => {
      let filterMember = member.filter( item => item.email !== email)
-
      setMember(filterMember)
   }
 

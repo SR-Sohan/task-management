@@ -7,12 +7,12 @@ const HeaderNav = () => {
   const [preview, setPreview] = useState("");
 
   useEffect(() => {
-    let loginUser = JSON.parse(localStorage.getItem("isLogin"));
-    let users = JSON.parse(localStorage.getItem('users'))
+    let loginUser = JSON.parse(localStorage.getItem("isLogin")) || [];
+    let users = JSON.parse(localStorage.getItem('users')) || []
 
    let filterUser =  users.find( user => user.email === loginUser.email)
 
-   setPreview(filterUser.image)
+   setPreview(filterUser && filterUser.image)
 
   }, []);
 

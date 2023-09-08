@@ -8,8 +8,8 @@ const SideNav = () => {
 
 
     useEffect(()=> {
-        const loginUser = JSON.parse(localStorage.getItem("isLogin"));
-        const teamsList = JSON.parse(localStorage.getItem("teams"));
+        const loginUser = JSON.parse(localStorage.getItem("isLogin")) || [];
+        const teamsList = JSON.parse(localStorage.getItem("teams")) || [];
 
         let filterTeam = teamsList.filter( team => {
             return team.owner == loginUser.email || team.members.filter( item => item.email === loginUser.email)
