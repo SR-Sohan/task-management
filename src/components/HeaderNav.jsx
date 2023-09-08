@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import defaultImage from "../assets/preview.png";
 import { useEffect, useState } from "react";
 
 const HeaderNav = () => {
   const [preview, setPreview] = useState("");
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     let loginUser = JSON.parse(localStorage.getItem("isLogin")) || [];
@@ -22,7 +24,7 @@ const HeaderNav = () => {
     localStorage.removeItem("isLogin");
     toast.success("Logout Successful");
     setTimeout(() => {
-      window.location.href = "/login";
+      navigate("/login")
     }, 1000);
   };
 
