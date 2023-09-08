@@ -8,6 +8,7 @@ import PrivateRoute from "./PrivateRoute";
 import DashLayout from "./pages/DashLayout";
 import Profile from "./pages/Profile";
 import CreateTeam from "./pages/CreateTeam";
+import Teams from "./pages/Teams";
 
 
 const AppRouting = () => {
@@ -22,6 +23,7 @@ const AppRouting = () => {
             <Route  index element={<Home />} />
             <Route path="/profile" element={<Profile/>} />
             <Route path="/create-team" element={<CreateTeam/>} />
+            <Route path="team/:name" element={<Teams/>}/>
           </Route>
         </Routes>
       </BrowserRouter>
