@@ -13,7 +13,7 @@ const Profile = () => {
     let loginUser = JSON.parse(localStorage.getItem("isLogin"));
     let users = JSON.parse(localStorage.getItem("users"));
     const matchedUser = users.find(
-      (user) => user.username === loginUser.username
+      (user) => user.email === loginUser.email
     );
     if (matchedUser) {
       setAuth(matchedUser);
