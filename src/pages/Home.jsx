@@ -10,7 +10,7 @@ const Home = () => {
         setData(teams)
     },[])
     
-console.log(data);
+
     return (
         <div className="container mt-5">
             <h2>Team Name </h2>

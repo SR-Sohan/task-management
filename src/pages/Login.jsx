@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Login = () => {
+  const navigate = useNavigate()
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -35,7 +36,7 @@ const Login = () => {
         setTimeout(()=> {
             let user = JSON.stringify({email: data.email, status: true})
             localStorage.setItem("isLogin",user);
-            window.location.href = "/"
+            navigate("/")
         },1000)
       } else {
         toast.error("User Email and Password didn't Match");

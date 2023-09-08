@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Register = () => {
+
+  const navigate = useNavigate()
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -42,7 +44,7 @@ const Register = () => {
         toast.success("Register Successful");
 
         setTimeout(() => {
-          window.location.href = "/login";
+          navigate("/login")
         }, 1000);
       } else {
         toast.error("Email already registered. Please use a different email.");
